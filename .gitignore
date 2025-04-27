@@ -1,0 +1,9 @@
+node_modules/
+.idea/
+dist/
+data/
+
+.env
+.docker-compose.yml
+package-lock.json
+qodana.yaml
