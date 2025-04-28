@@ -23,7 +23,7 @@ async function getGoogleCalendar() {
     try {
         calendarListResponse = await GOOGLE_CALENDAR.calendarList.list();
     } catch (err) {
-        logger.error(new Error(String(err)));
+        logger.safeError("", err);
         return;
     }
 
@@ -44,7 +44,7 @@ async function getGoogleCalendar() {
             });
             logger.silly(`Deleting calendar : ${item.id}`);
         } catch (err) {
-            logger.error(new Error(String(err)));
+            logger.safeError("", err);
         }
     }
 
@@ -61,7 +61,7 @@ async function getGoogleCalendar() {
         calendarId = calendarInsertResponse.data.id;
         logger.silly(`Calendar created : ${calendarId}`);
     } catch (err) {
-        logger.error(new Error(String(err)));
+        logger.safeError("", err);
         return;
     }
 
@@ -79,7 +79,7 @@ async function getGoogleCalendar() {
         });
         logger.silly("Calendar ACL set");
     } catch (err) {
-        logger.error(new Error(String(err)));
+        logger.safeError("", err);
         return;
     }
 
@@ -112,13 +112,13 @@ export function constructGoogleCalendarRequestBody(dbDocument: WithId<DBCalendar
     try {
         event = DB_DOCUMENT_SCHEMA.parse(dbDocument);
     } catch (err) {
-        logger.error(new Error(String(err)));
+        logger.safeError("", err);
         return;
     }
 
     const date = DateTime.fromISO(`${event.date.ISOMonth}-${event.date.day}`);
     if (!date.isValid) {
-        logger.error(new Error("Invalid date found in database document"));
+        logger.safeError("", new Error("Invalid date found in database document"));
         return;
     }
     const ISODate = date.toISODate();
@@ -192,7 +192,7 @@ export async function syncGoogleCalendar(unsyncedEvents: UnsyncedDBDocument) {
             logger.silly("Calendar event created");
         } catch (err) {
             // Failure to create the event is not critical, we can just log it and move on (the program will retry later)
-            logger.error(new Error(String(err)));
+            logger.safeError("", err);
         }
     }
 
@@ -211,7 +211,7 @@ export async function syncGoogleCalendar(unsyncedEvents: UnsyncedDBDocument) {
                 logger.silly("Calendar event deleted (not found)");
             } else {
                 // Once again, failure to delete the event is not critical, we can just log it and move on (the program will retry later)
-                logger.error(new Error(String(err)));
+                logger.safeError("", err);
             }
         }
     }

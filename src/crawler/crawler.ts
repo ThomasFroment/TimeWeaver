@@ -108,7 +108,7 @@ async function navigateAndFetchMonthsData(page: Page, ISOMonths: string[]) {
             jsonResponses.push(await jsonResponsePromise);
             fetchedMonths.push(ISOMonth);
         } catch (err) {
-            logger.error(err);
+            logger.safeError("", err);
         }
     }
 

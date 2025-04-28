@@ -67,7 +67,7 @@ export async function dbPostCalendarSync(syncResults: ApiSyncResults): Promise<v
 
         await collection.updateMany({_id: {$in: syncResults.deleted}}, {$set: {"event.isCreated": false}});
     } catch (err) {
-        logger.error(err);
+        logger.safeError("", err);
     }
     logger.debug(`${String(syncResults.created.length)} events created and ${String(syncResults.deleted.length)} events deleted`);
 }
