@@ -12,7 +12,7 @@ const PUPPETEER_OPTIONS = {
     args: ["--no-sandbox", "--disable-gpu"]
 };
 
-async function openPuppeteerBrowserAndPage() {
+async function openPuppeteerBrowserAndPage() : Promise<{ browser: puppeteer.Browser, page: Page }> {
     const browser = await puppeteer.launch(PUPPETEER_OPTIONS);
     const page = await browser.newPage();
 
@@ -39,7 +39,7 @@ async function captureValidResponse(page: Page, ISOMonth: string): Promise<JSONP
             reject(new Error("No response"));
         }, 30000);
 
-        const responseHandler = async (response: puppeteer.HTTPResponse) => {
+        const responseHandler = async (response: puppeteer.HTTPResponse): Promise<void> => {
             if (response.headers()["content-type"] !== "application/json;charset=UTF-8") return;
             const json: unknown = await response.json();
             const parsedResponse = parseJSONResponse(json, ISOMonth);
@@ -57,7 +57,7 @@ async function captureValidResponse(page: Page, ISOMonth: string): Promise<JSONP
 }
 
 // Function to navigate the website and triggers JSON response for each month
-async function navigateAndFetchMonthsData(page: Page, ISOMonths: string[]) {
+async function navigateAndFetchMonthsData(page: Page, ISOMonths: string[]) : Promise<{ jsonResponses: JSONParsedResponse[], fetchedMonths: string[] }> {
     await page.goto(config.CHD_WEBSITE, {waitUntil: "load"});
 
     await page.waitForSelector("#identifierInput");
@@ -119,7 +119,7 @@ async function navigateAndFetchMonthsData(page: Page, ISOMonths: string[]) {
 }
 
 // This handle both the navigation and the parsing, the goal is to return a clean array of events
-export async function fetchMonthlyEvents(ISOMonths: string[]) {
+export async function fetchMonthlyEvents(ISOMonths: string[]) : Promise<{ calendarEvents: CalendarEvent[], fetchedMonths: string[] }> {
     const {browser, page} = await openPuppeteerBrowserAndPage();
     logger.info(`Crawling months: ${ISOMonths.join(", ")}`);
 

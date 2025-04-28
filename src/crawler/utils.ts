@@ -15,7 +15,7 @@ export function extractTime(str: string): [string, string] {
 }
 
 // e.g. "2023-01" => "01/2023"
-export function toCustomFormat(ISOMonth: string) {
+export function toCustomFormat(ISOMonth: string) : string {
     const regex = /^(\d{4})-(\d{2})$/;
     if (!regex.test(ISOMonth)) return "";
 

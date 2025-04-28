@@ -15,7 +15,7 @@ const GOOGLE_CALENDAR = google.calendar({
 });
 
 // Retreive or create the calendar we are working with
-async function getGoogleCalendar() {
+async function getGoogleCalendar() : Promise<string | undefined> {
     db.read();
     let calendarId = db.data.calendarId;
 
@@ -166,7 +166,7 @@ export function hasErrorCode(err: unknown): err is { code: number } {
 }
 
 // Insert and delete the events from the Google calendar as needed (return confirmation for each event)
-export async function syncGoogleCalendar(unsyncedEvents: UnsyncedDBDocument) {
+export async function syncGoogleCalendar(unsyncedEvents: UnsyncedDBDocument) : Promise<ApiSyncResults> {
     logger.info("Syncing calendar...");
 
     const syncResults: ApiSyncResults = {

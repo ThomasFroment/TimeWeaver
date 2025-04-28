@@ -6,7 +6,7 @@ import {syncGoogleCalendar} from "./api/api.js";
 
 Settings.defaultZone = "Europe/Paris";
 
-async function syncUnsyncedEventsWithCalendar() {
+async function syncUnsyncedEventsWithCalendar() : Promise<void> {
     const {toCreate, toDelete} = await dbGetUnsyncedEvents();
     if (toCreate.length === 0 && toDelete.length === 0) return;
 
@@ -16,7 +16,7 @@ async function syncUnsyncedEventsWithCalendar() {
     await dbPostCalendarSync({created, deleted});
 }
 
-async function fetchEventsAndSyncCalendar() {
+async function fetchEventsAndSyncCalendar() : Promise<void> {
     const now = DateTime.local();
     const ISOMonths = [now.toFormat("yyyy-MM")];
 

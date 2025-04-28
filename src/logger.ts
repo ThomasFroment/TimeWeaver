@@ -31,7 +31,7 @@ const logger = winston.createLogger({
     ]
 }) as ExtendedLogger;
 
-logger.safeError = function(message: string, err: unknown) {
+logger.safeError = function(message: string, err: unknown): void {
     this.error(message, {
         message: err instanceof Error ? err.message : String(err),
         stack: err instanceof Error ? err.stack : undefined,

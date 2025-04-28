@@ -14,7 +14,7 @@ const VALID_ABSENCES = [
 ];
 
 // Try to parse an event from a rw (row) of the JSON response
-export function parseEvent(rw: NullableValue[], eventTypes: NullableValue[][], strs: string[], ISOMonth: string) {
+export function parseEvent(rw: NullableValue[], eventTypes: NullableValue[][], strs: string[], ISOMonth: string) : CalendarEvent | undefined {
     // Basically we have a rw that point to an eventType entry which itself point to a string (the label of the event)
     const eventTypeIndex = rw[3];
     const strIndex = typeof eventTypeIndex === "number" ? eventTypes[eventTypeIndex]?.[0] : undefined;
@@ -36,18 +36,18 @@ export function parseEvent(rw: NullableValue[], eventTypes: NullableValue[][], s
     if (eventLabel !== undefined) {
         if (start && end) {
             logger.silly(`Parsed absence: ${eventLabel} (${start} - ${end}) on ${day}/${ISOMonth}`);
-            return {date, event: {start, end, label: eventLabel}} as CalendarEvent;
+            return {date, event: {start, end, label: eventLabel}};
         }
 
         logger.silly(`Parsed absence: ${eventLabel} on ${day}/${ISOMonth}`);
-        return {date, event: {label: eventLabel}} as CalendarEvent;
+        return {date, event: {label: eventLabel}};
     }
 
     // If the event string does not contain a valid absence label we parse it as a normal event
     // The check for '(' is to avoid parsing an absence that is not in the VALID_ABSENCES list
     if (start && end && !eventStr.includes("(")) {
         logger.silly(`Parsed schedule: (${start} - ${end}) on ${day}/${ISOMonth}`);
-        return {date, event: {start, end, label: "Chronodrive"}} as CalendarEvent;
+        return {date, event: {start, end, label: "Chronodrive"}};
     }
 
     return;
@@ -80,7 +80,7 @@ const JSON_RESPONSE_SCHEMA = z.object({
 });
 
 // Extract the useful data from the JSON response (if it is valid, otherwise return undefined)
-export function parseJSONResponse(json: unknown, ISOMonth: string) {
+export function parseJSONResponse(json: unknown, ISOMonth: string) : JSONParsedResponse | undefined {
     const topLevel = JSON_RESPONSE_SCHEMA.safeParse(json); // json.objects
     if (!topLevel.success) return;
 
