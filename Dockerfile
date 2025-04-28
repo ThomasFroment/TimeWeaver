@@ -6,6 +6,8 @@ COPY package.json package-lock.json ./
 COPY tsconfig.json ./
 COPY src ./src
 
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+
 RUN npm install
 RUN npm run build
 
