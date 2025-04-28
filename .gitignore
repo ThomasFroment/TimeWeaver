@@ -2,8 +2,9 @@ node_modules/
 .idea/
 dist/
 data/
+logs/
 
 .env
-.docker-compose.yml
+docker-compose.yml
 package-lock.json
 qodana.yaml
