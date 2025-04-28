@@ -1,4 +1,5 @@
-import { JSONFilePreset } from "lowdb/node";
+import { JSONFileSyncPreset } from "lowdb/node";
+import fs from "fs";
 
 interface LowdbData {
     calendarId: string;
@@ -8,6 +9,10 @@ const defaultData: LowdbData = {
     calendarId: ""
 };
 
-const db = await JSONFilePreset<LowdbData>("./data/db.json", defaultData);
+if (!fs.existsSync("./data")){
+    fs.mkdirSync("./data");
+}
+
+const db = JSONFileSyncPreset<LowdbData>("./data/db.json", defaultData);
 
 export default db;

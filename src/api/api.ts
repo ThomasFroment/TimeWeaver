@@ -16,7 +16,7 @@ const GOOGLE_CALENDAR = google.calendar({
 
 // Retreive or create the calendar we are working with
 async function getGoogleCalendar() {
-    await db.read();
+    db.read();
     let calendarId = db.data.calendarId;
 
     let calendarListResponse;
@@ -86,7 +86,7 @@ async function getGoogleCalendar() {
     await dbClearEvents();
 
     db.data.calendarId = calendarId;
-    await db.write();
+    db.write();
 
     logger.silly("Calendar ID saved to database");
     return calendarId;
