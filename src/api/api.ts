@@ -128,7 +128,7 @@ export function constructGoogleCalendarRequestBody(dbDocument: WithId<DBCalendar
         return {
             summary: event.event.label,
             id: event._id.toString(),
-            description: DateTime.fromISO(event.createdAt).toLocaleString(DateTime.DATETIME_FULL),
+            description: DateTime.fromISO(event.createdAt).toFormat("yyyy LLL dd, HH:mm ZZZZ"),
             start: {
                 dateTime: `${ISODate}T${eventStart}:00`,
                 timeZone: "Europe/Paris"
@@ -145,7 +145,7 @@ export function constructGoogleCalendarRequestBody(dbDocument: WithId<DBCalendar
         return {
             summary: event.event.label,
             id: event._id.toString(),
-            description: DateTime.fromISO(event.createdAt).toLocaleString(DateTime.DATETIME_FULL),
+            description: DateTime.fromISO(event.createdAt).toFormat("yyyy LLL dd, HH:mm ZZZZ"),
             start: {
                 date: ISODate,
                 timeZone: "Europe/Paris"

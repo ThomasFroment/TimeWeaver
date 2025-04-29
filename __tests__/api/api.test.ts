@@ -42,7 +42,7 @@ describe("constructGoogleCalendarRequestBody", () => {
         expect(requestBody).toEqual({
                 summary: "Chronodrive",
                 id: "680c24495faaa8dfdf6d1d02",
-                description: "26 April 2025 at 02:09 CEST",
+                description: "2025 Apr 26, 02:09 GMT+2",
                 start: {dateTime: "2025-04-02T13:00:00", timeZone: "Europe/Paris"},
                 end: {dateTime: "2025-04-02T20:45:00", timeZone: "Europe/Paris"}
             }
@@ -62,7 +62,7 @@ describe("constructGoogleCalendarRequestBody", () => {
         expect(requestBody).toEqual({
             summary: "FERIE",
             id: "680c24495faaa8dfdf6d1d44",
-            description: "26 April 2025 at 02:09 CEST",
+            description: "2025 Apr 26, 02:09 GMT+2",
             start: {date: "2025-05-29", timeZone: "Europe/Paris"},
             end: {date: "2025-05-29", timeZone: "Europe/Paris"}
         });
