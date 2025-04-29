@@ -12,7 +12,7 @@ env:
   PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
       
 jobs:
-  compile:
+  vitest:
     runs-on: ubuntu-latest
 
     steps:
