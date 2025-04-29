@@ -30,7 +30,7 @@ vi.mock("../src/config.js", () => ({
 
 vi.mock("../src/logger.js", () => ({
     default: {
-        silly: vi.fn(), debug: vi.fn(), info: vi.fn(), warn: vi.fn(), error: vi.fn()
+        silly: vi.fn(), debug: vi.fn(), info: vi.fn(), warn: vi.fn(), error: vi.fn(), safeError: vi.fn()
     }
 }));
 
