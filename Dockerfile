@@ -8,7 +8,7 @@ COPY src ./src
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
-RUN npm install
+RUN npm ci
 RUN npm run build
 
 FROM node:22-bookworm-slim AS runner
@@ -54,6 +54,6 @@ RUN chown $PPTRUSER_UID:$PPTRUSER_UID -R /home/pptruser
 
 USER $PPTRUSER_UID
 
-RUN npm install --omit=dev
+RUN npm ci --omit=dev
 
 CMD ["node", "dist/app.js"]
