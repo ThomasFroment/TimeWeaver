@@ -1,4 +1,7 @@
 import { vi } from "vitest";
+import { Settings } from "luxon";
+
+Settings.defaultZone = "Europe/Paris";
 
 console.log = vi.fn();
 
