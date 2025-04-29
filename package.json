@@ -8,7 +8,7 @@
     "test": "vitest",
     "build": "tsc"
   },
-  "license": "ISC",
+  "license": "GPL-3.0",
   "dependencies": {
     "flat": "^6.0.1",
     "googleapis": "^148.0.0",
